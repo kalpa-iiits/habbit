@@ -11,3 +11,10 @@ class CourseSerializer(serializers.ModelSerializer):
         exclude = ()
 
 
+class WishlistSerializer(serializers.ModelSerializer):	
+    class Meta:
+
+        model = Wishlist
+        field = '__all__'
+        depth = 1
+        exclude = ()

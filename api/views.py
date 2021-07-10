@@ -3,8 +3,8 @@ from rest_framework.generics import ListAPIView
 from rest_framework.generics import CreateAPIView
 from rest_framework.generics import DestroyAPIView
 from rest_framework.generics import UpdateAPIView
-from .serializers import CourseSerializer
-from course.models import Course
+from .serializers import CourseSerializer, WishlistSerializer
+from course.models import Course, Wishlist
 
 # Create your views here.
 class ListCourseAPIView(ListAPIView):
@@ -22,3 +22,19 @@ class UpdateCourseAPIView(UpdateAPIView):
 class DeleteCourseAPIView(DestroyAPIView):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
+
+class ListWishlistAPIView(ListAPIView):
+    queryset = Wishlist.objects.all()
+    serializer_class = WishlistSerializer
+
+class CreateWishlistAPIView(CreateAPIView):
+    queryset = Wishlist.objects.all()
+    serializer_class = WishlistSerializer
+
+class UpdateWishlistAPIView(UpdateAPIView):
+    queryset = Wishlist.objects.all()
+    serializer_class = WishlistSerializer
+
+class DeleteWishlistAPIView(DestroyAPIView):
+    queryset = Wishlist.objects.all()
+    serializer_class = WishlistSerializer
