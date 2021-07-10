@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 
 class Course(models.Model):
     course_name=models.CharField(max_length=250)
-    author_name=models.CharField(max_length=250)
+    author=models.CharField(max_length=250)
     date=models.DateTimeField(auto_now=False, auto_now_add=True)
     price=models.IntegerField()
     enrolled=models.ManyToManyField(User, blank=True)

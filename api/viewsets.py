@@ -6,15 +6,13 @@ from rest_framework.generics import UpdateAPIView
 from .serializers import CourseSerializer, WishlistSerializer
 from course.models import Course, Wishlist
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.authentication import TokenAuthentication
-
+from rest_framework.response import Response
 
 # Create your views here.
 class ListCourseAPIView(ListAPIView):
-    permission_classes = (IsAuthenticated,)
-    queryset=Course.objects.all()
-    serializer_class=CourseSerializer
-    authentication_classess = [TokenAuthentication]
+	permission_classes = (IsAuthenticated,)
+	queryset=Course.objects.all()
+	serializer_class=CourseSerializer
 
 class CreateCourseAPIView(CreateAPIView):
     queryset = Course.objects.all()
