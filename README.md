@@ -9,7 +9,7 @@ The following things are implemented in this repo.
 
 How to Access the APIs:
 
-  The code is hosted on heroku and the APIs can be directly acessed from an endpoint. The project is also hosted on heroku and can be accessed at  
+  The code is hosted on heroku and the APIs can be directly acessed from an endpoint. The project is also hosted on heroku and can be accessed at  https://habbit-interview.herokuapp.com/
     
 To run the code in a local machine:
   1. Make sure you have pip intstalled in your system.
