@@ -1,7 +1,11 @@
+'''
+Module defining permisiions
+
+'''
 from django.db import models
 from authentication.models import User
 
-
+#Creating course model
 
 class Course(models.Model):
     course_name=models.CharField(max_length=250)

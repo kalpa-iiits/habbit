@@ -7,6 +7,23 @@ from .permissions import IsOwner
 
 
 class CourseListAPIView(ListCreateAPIView):
+    """
+    Class to retrn course list
+
+    Attributes
+    ---------------------------------------
+    Course  data
+        
+    Methods
+    --------------------------------------
+    GET method to get all set of courses
+    POST method to create a new course
+
+    Return
+    --------------------------------------
+    Course list
+    
+    """
     serializer_class = CourseSerializer
     queryset = Course.objects.all()
     permission_classes = (permissions.IsAuthenticated,)
@@ -19,6 +36,24 @@ class CourseListAPIView(ListCreateAPIView):
 
 
 class CourseDetailAPIView(RetrieveUpdateDestroyAPIView):
+
+    """
+    Class to retrn a single course
+
+    Attributes
+    ---------------------------------------
+    Course attrs
+        
+    Methods
+    --------------------------------------
+    GET method to het single course data
+
+    Return
+    --------------------------------------
+    Single course serialized data
+    
+    """
+
     serializer_class = CourseSerializer
     permission_classes = (permissions.IsAuthenticated, IsOwner,)
     queryset = Course.objects.all()

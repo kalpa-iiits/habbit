@@ -1,10 +1,14 @@
+"""
+Module containing all the urls of the authentication app
+    
+"""
 from django.urls import path
 from .views import RegisterView, LogoutAPIView, SetNewPasswordAPIView, VerifyEmail, LoginAPIView, PasswordTokenCheckAPI, RequestPasswordResetEmail
 from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 
-
+#Url patterns of all the functions
 urlpatterns = [
     path('register/', RegisterView.as_view(), name="register"),
     path('login/', LoginAPIView.as_view(), name="login"),

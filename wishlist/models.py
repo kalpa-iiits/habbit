@@ -1,3 +1,7 @@
+'''
+Module that defines the structre of wishlist
+
+'''
 from django.db import models
 from authentication.models import User
 from course.models import Course

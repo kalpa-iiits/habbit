@@ -1,4 +1,7 @@
+"""
+Module to serialze objects and querysets 
 
+"""
 from rest_framework import serializers
 from .models import User
 from django.contrib import auth
@@ -10,6 +13,23 @@ from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 
 
 class RegisterSerializer(serializers.ModelSerializer):
+    """
+    Class to validate and serialize User data that are send for user registration 
+
+    Attributes
+    -------------------------------
+    Attrbuites are attained from user model
+        
+    Methods
+    -------------------------------
+    Validate the data
+    Create the objects
+
+    Return
+    -------------------------------
+    Serialized data
+    
+    """
     password = serializers.CharField(
         max_length=68, min_length=6, write_only=True)
 
@@ -34,14 +54,45 @@ class RegisterSerializer(serializers.ModelSerializer):
 
 
 class EmailVerificationSerializer(serializers.ModelSerializer):
+    """
+    Class to serialize User email
+
+    Attributes
+    -------------------------------
+    Email
+        
+    Return
+    -------------------------------
+    Serialized data
+    
+    """
     token = serializers.CharField(max_length=555)
 
     class Meta:
         model = User
         fields = ['token']
+    
+    
 
 
 class LoginSerializer(serializers.ModelSerializer):
+    """
+    Class to validate and serialize User data for login
+
+    Attributes
+    -------------------------------
+    User credentials
+        
+    Methods
+    -------------------------------
+    Validate the data
+    Serialize the data
+
+    Return
+    -------------------------------
+    Token 
+    
+    """
     email = serializers.EmailField(max_length=255, min_length=3)
     password = serializers.CharField(
         max_length=68, min_length=6, write_only=True)
@@ -89,6 +140,14 @@ class LoginSerializer(serializers.ModelSerializer):
 
 
 class ResetPasswordEmailRequestSerializer(serializers.Serializer):
+    """
+    Serializer class to validate email for password change
+
+    Attributes
+    -------------------------------
+    Email and redirect url
+    
+    """
     email = serializers.EmailField(min_length=2)
 
     redirect_url = serializers.CharField(max_length=500, required=False)
@@ -98,6 +157,23 @@ class ResetPasswordEmailRequestSerializer(serializers.Serializer):
 
 
 class SetNewPasswordSerializer(serializers.Serializer):
+    """
+    Serializer class to validate and serialize User credentials for passwprd change
+
+    Attributes
+    -------------------------------
+    User credentials
+        
+    Methods
+    -------------------------------
+    Validate the data
+    Create new password
+
+    Return
+    -------------------------------
+    Serialized user data
+    
+    """
     password = serializers.CharField(
         min_length=6, max_length=68, write_only=True)
     token = serializers.CharField(
@@ -129,6 +205,10 @@ class SetNewPasswordSerializer(serializers.Serializer):
 
 
 class LogoutSerializer(serializers.Serializer):
+    """
+    Class to logout a user
+    
+    """
     refresh = serializers.CharField()
 
     default_error_message = {

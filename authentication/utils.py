@@ -1,3 +1,7 @@
+'''
+Module containing utlity function to send email for verification
+
+'''
 from django.core.mail import EmailMessage
 
 
@@ -15,6 +19,14 @@ class EmailThread(threading.Thread):
 
 
 class Util:
+    """
+    Class uses staticmethod to send  email
+
+    Methods
+    -------------------------------
+    Email user
+    
+    """
     @staticmethod
     def send_email(data):
         email = EmailMessage(

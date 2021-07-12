@@ -23,6 +23,10 @@ from django.views.static import serve
 from django.conf import settings
 
 
+'''
+This is a schema tool that will help Swagger to build an API interface
+
+'''
 schema_view = get_schema_view(
     openapi.Info(
         title="API FOR HABBIT INTERVIEW",
@@ -45,11 +49,13 @@ urlpatterns = [
     path('', schema_view.with_ui('swagger',
                                  cache_timeout=0), name='schema-swagger-ui'),
 
+    #urls for swagger schema
     path('api/api.json/', schema_view.without_ui(cache_timeout=0),
          name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc',
                                        cache_timeout=0), name='schema-redoc'),
 
+    #url for staic and media files
     url(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}), 
     url(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
 ]

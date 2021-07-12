@@ -1,6 +1,9 @@
-from django.db import models
+'''
+Module to define the structure of Custom user
 
-# Create your models here.
+'''
+
+from django.db import models
 from django.contrib.auth.models import (
     AbstractBaseUser, BaseUserManager, PermissionsMixin)
 
@@ -10,7 +13,24 @@ from rest_framework_simplejwt.tokens import RefreshToken
 
 class UserManager(BaseUserManager):
 
+    """
+    Class containing methods to create user and superuser
+
+    Attributes
+    -------------------------------
+    username : str
+    email : str
+    password: str
+        
+    Returns
+    -------------------------------
+    User object
+
+    """
+
     def create_user(self, username, email, password=None):
+
+        # Method to create user
         if username is None:
             raise TypeError('Users should have a username')
         if email is None:
@@ -22,6 +42,8 @@ class UserManager(BaseUserManager):
         return user
 
     def create_superuser(self, username, email, password=None):
+
+        #Method to create superuser
         if password is None:
             raise TypeError('Password should not be none')
 
@@ -32,11 +54,27 @@ class UserManager(BaseUserManager):
         return user
 
 
-AUTH_PROVIDERS = {'facebook': 'facebook', 'google': 'google',
-                  'twitter': 'twitter', 'email': 'email'}
+AUTH_PROVIDERS = {'email': 'email'}
 
 
 class User(AbstractBaseUser, PermissionsMixin):
+    """
+    Class to define the fileds of a Custom User
+    It also contaions tokens for the purpose of token
+    authentication.
+
+    Attributes
+    -------------------------------
+    username : str
+    email : str
+    password: str
+    user_status: Bool
+        
+    Methods
+    -------------------------------
+    Generate tokens
+    
+    """
     username = models.CharField(max_length=255, unique=True, db_index=True)
     email = models.EmailField(max_length=255, unique=True, db_index=True)
     is_verified = models.BooleanField(default=False)
@@ -56,6 +94,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.email
 
+    #Method to generate token
     def tokens(self):
         refresh = RefreshToken.for_user(self)
         return {

@@ -31,6 +31,8 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'habbit-interview.herokuapp.com']
 AUTH_USER_MODEL = 'authentication.User'
 # Application definition
 
+
+#List of installed Apps
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -47,6 +49,7 @@ INSTALLED_APPS = [
     'wishlist',
 ]
 
+#Swageer is an openapi tool for buling a API interface
 SWAGGER_SETTINGS = {
     'SECURITY_DEFINITIONS': {
         'Bearer': {
@@ -56,6 +59,8 @@ SWAGGER_SETTINGS = {
         }
     }
 }
+
+#Middleware settings
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -111,6 +116,8 @@ DATABASES = {
     }
 }
 
+# Defining settings for rest framework
+
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
@@ -120,6 +127,7 @@ REST_FRAMEWORK = {
     )
 }
 
+#Using JWT tokens for user authentication
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': datetime.timedelta(minutes=1),
@@ -159,8 +167,8 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.2/howto/static-files/
+#Emai  configuration for sending email
+
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587

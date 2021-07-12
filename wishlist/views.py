@@ -7,6 +7,26 @@ from .permissions import IsOwner
 
 
 class WishlistListAPIView(ListCreateAPIView):
+    """
+    Class to obtain all the wishlist 
+
+    Attributes
+    ---------------------------------------
+    Wishlist data
+        
+    Methods
+    --------------------------------------
+    Post method to create data
+    Get method to obtain wishlist
+
+    Sends email to user email for user verification,
+    The mail contains a JSW token
+
+    Return
+    --------------------------------------
+    Serialized wishlist data
+    
+    """
     serializer_class = WishlistSerializer
     queryset = Wishlist.objects.all()
     permission_classes = (permissions.IsAuthenticated,)
@@ -19,6 +39,22 @@ class WishlistListAPIView(ListCreateAPIView):
 
 
 class WishlistDetailAPIView(RetrieveUpdateDestroyAPIView):
+    """
+    Class to retrn a single wishlist
+
+    Attributes
+    ---------------------------------------
+    Wishlist data
+        
+    Methods
+    --------------------------------------
+    GET method to het single wishlist data
+
+    Return
+    --------------------------------------
+    Single wishlist serialized data
+    
+    """
     serializer_class = WishlistSerializer
     permission_classes = (permissions.IsAuthenticated, IsOwner,)
     queryset = Wishlist.objects.all()

@@ -1,3 +1,8 @@
+'''
+Module contating all view classess for user authentication
+
+'''
+
 from django.shortcuts import render
 from rest_framework import generics, status, views, permissions
 from .serializers import RegisterSerializer, SetNewPasswordSerializer, ResetPasswordEmailRequestSerializer, EmailVerificationSerializer, LoginSerializer, LogoutSerializer
@@ -25,15 +30,38 @@ import os
 
 class CustomRedirect(HttpResponsePermanentRedirect):
 
+    #CLass containing redirect methods
+
     allowed_schemes = [os.environ.get('APP_SCHEME'), 'http', 'https']
 
 
 class RegisterView(generics.GenericAPIView):
+    """
+    Class to register user data of new users 
+
+    Attributes
+    ---------------------------------------
+    User credentials
+        
+    Methods
+    --------------------------------------
+    Post method that is to be send over
+    API to register ur in database
+
+    Sends email to user email for user verification,
+    The mail contains a JSW token
+
+    Return
+    --------------------------------------
+    User data
+    
+    """
 
     serializer_class = RegisterSerializer
     renderer_classes = (UserRenderer,)
 
     def post(self, request):
+        #Method to create a new user
         user = request.data
         serializer = self.serializer_class(data=user)
         serializer.is_valid(raise_exception=True)
@@ -54,6 +82,22 @@ class RegisterView(generics.GenericAPIView):
 
 
 class VerifyEmail(views.APIView):
+    """
+    Class based view to verify user email 
+
+    Attributes
+    ---------------------------------------
+    User credentials
+        
+    Methods
+    --------------------------------------
+    Verify email and generate token 
+
+    Return
+    --------------------------------------
+    Token
+    
+    """
     serializer_class = EmailVerificationSerializer
 
     token_param_config = openapi.Parameter(
@@ -76,6 +120,22 @@ class VerifyEmail(views.APIView):
 
 
 class LoginAPIView(generics.GenericAPIView):
+    """
+    Class based view for user login
+
+    Attributes
+    ---------------------------------------
+    User credentials
+        
+    Methods
+    --------------------------------------
+    Post method for user login
+
+    Return
+    --------------------------------------
+    User data
+    
+    """
     serializer_class = LoginSerializer
 
     def post(self, request):
@@ -85,6 +145,18 @@ class LoginAPIView(generics.GenericAPIView):
 
 
 class RequestPasswordResetEmail(generics.GenericAPIView):
+    """
+    Class based view to rest email vil email verification
+
+    Attributes
+    ---------------------------------------
+    Email
+        
+    Methods
+    --------------------------------------
+    Post method to verify email and set password
+    
+    """
     serializer_class = ResetPasswordEmailRequestSerializer
 
     def post(self, request):
@@ -112,6 +184,26 @@ class RequestPasswordResetEmail(generics.GenericAPIView):
 
 
 class PasswordTokenCheckAPI(generics.GenericAPIView):
+    """
+    Class based view to check token of a user
+
+    Attributes
+    ---------------------------------------
+    User credentials
+        
+    Methods
+    --------------------------------------
+    Post method that is to be send over
+    API to register ur in database
+
+    Sends email to user email for user verification,
+    The mail contains a JSW token
+
+    Return
+    --------------------------------------
+    User data
+    
+    """
     serializer_class = SetNewPasswordSerializer
 
     def get(self, request, uidb64, token):
@@ -144,6 +236,22 @@ class PasswordTokenCheckAPI(generics.GenericAPIView):
 
 
 class SetNewPasswordAPIView(generics.GenericAPIView):
+    """
+    Class based view to set a new password 
+
+    Attributes
+    ---------------------------------------
+    User credentials
+        
+    Methods
+    --------------------------------------
+    Patch method to send new user data
+
+    Return
+    --------------------------------------
+    Status of password reset 
+    
+    """
     serializer_class = SetNewPasswordSerializer
 
     def patch(self, request):
@@ -153,6 +261,14 @@ class SetNewPasswordAPIView(generics.GenericAPIView):
 
 
 class LogoutAPIView(generics.GenericAPIView):
+    """
+    Class of a view to logout a user
+
+    Methods
+    --------------------------------------
+    Post method to logout a user
+    
+    """
     serializer_class = LogoutSerializer
 
     permission_classes = (permissions.IsAuthenticated,)
