@@ -26,7 +26,7 @@ SECRET_KEY = '@6p-h7#oy4unyb4+(@i&3eq(knbkvjkeyv&@*8+a%f45b@mfm1'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'habbit-interview.herokuapp.com']
 
 AUTH_USER_MODEL = 'authentication.User'
 # Application definition
