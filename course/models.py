@@ -1,29 +1,14 @@
 from django.db import models
-from django.conf import settings
-from django.core.validators import MaxValueValidator, MinValueValidator
-from django.contrib.auth.models import User
+from authentication.models import User
 
-class Profile(models.Model):
-	user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, primary_key=True)
-	name = models.CharField(max_length=100)
 
 
 class Course(models.Model):
     course_name=models.CharField(max_length=250)
-    author=models.ForeignKey(Profile, on_delete=models.CASCADE,null=True,blank=True)
-    date=models.DateTimeField(auto_now=False, auto_now_add=True)
+    author=models.ForeignKey(to=User, on_delete=models.CASCADE,null=True,blank=True, related_name='author')
+    created_at=models.DateTimeField(auto_now=False, auto_now_add=True)
     price=models.IntegerField()
-    enrolled=models.ManyToManyField(User, blank=True)
+    enrolled=models.ManyToManyField(to=User, blank=True, related_name='enrolled')
    
     def __str__(self):
         return str(self.id)
-
-
-class Wishlist(models.Model):
-    user=models.ForeignKey(User, on_delete=models.CASCADE,null=True,blank=True)
-    course_name = models.ManyToManyField(Course, blank=True)
-
-    def __str__(self):
-        return str(self.id)
-   
-  

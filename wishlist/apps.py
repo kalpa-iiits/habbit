@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class ExpensesConfig(AppConfig):
-    name = 'course'
+    name = 'wishlist'

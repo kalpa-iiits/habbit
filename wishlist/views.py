@@ -1,14 +1,14 @@
 from django.shortcuts import render
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
-from .serializers import CourseSerializer
-from .models import Course
+from .serializers import WishlistSerializer
+from .models import Wishlist
 from rest_framework import permissions
 from .permissions import IsOwner
 
 
-class CourseListAPIView(ListCreateAPIView):
-    serializer_class = CourseSerializer
-    queryset = Course.objects.all()
+class WishlistListAPIView(ListCreateAPIView):
+    serializer_class = WishlistSerializer
+    queryset = Wishlist.objects.all()
     permission_classes = (permissions.IsAuthenticated,)
 
     def perform_create(self, serializer):
@@ -18,10 +18,10 @@ class CourseListAPIView(ListCreateAPIView):
         return self.queryset.filter(owner=self.request.user)
 
 
-class CourseDetailAPIView(RetrieveUpdateDestroyAPIView):
-    serializer_class = CourseSerializer
+class WishlistDetailAPIView(RetrieveUpdateDestroyAPIView):
+    serializer_class = WishlistSerializer
     permission_classes = (permissions.IsAuthenticated, IsOwner,)
-    queryset = Course.objects.all()
+    queryset = Wishlist.objects.all()
     lookup_field = "id"
 
     def get_queryset(self):

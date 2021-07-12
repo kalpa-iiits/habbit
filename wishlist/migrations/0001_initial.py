@@ -10,19 +10,17 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
+        ('course', '0001_initial'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Course',
+            name='Wishlist',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('course_name', models.CharField(max_length=250)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('price', models.IntegerField()),
-                ('author', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='author', to=settings.AUTH_USER_MODEL)),
-                ('enrolled', models.ManyToManyField(blank=True, related_name='enrolled', to=settings.AUTH_USER_MODEL)),
+                ('course_name', models.ManyToManyField(blank=True, related_name='course_in_wishlist', to='course.Course')),
+                ('user', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='user_wishlist', to=settings.AUTH_USER_MODEL)),
             ],
         ),
     ]

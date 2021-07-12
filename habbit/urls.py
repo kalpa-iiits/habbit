@@ -1,7 +1,7 @@
-"""habbit URL Configuration
+"""incomeexpensesapi URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/3.2/topics/http/urls/
+    https://docs.djangoproject.com/en/2.2/topics/http/urls/
 Examples:
 Function views
     1. Add an import:  from my_app import views
@@ -14,15 +14,36 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from django.conf.urls import include
-from api import views
+from django.urls import path, include
+from rest_framework import permissions
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
 
+
+schema_view = get_schema_view(
+    openapi.Info(
+        title="API FOR HABBIT INTERVIEW",
+        default_version='',
+        description="",
+        terms_of_service="",
+        contact=openapi.Contact(email="kalpahe@gmail.com"),
+        license=openapi.License(name=""),
+    ),
+    public=True,
+    permission_classes=(permissions.AllowAny,),
+)
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('course/', include('course.urls'), name='course'),
-    path('api/', include('api.urls'), name='api_urls'),
- 
+    path('auth/', include('authentication.urls')),
+    path('wishlist/', include('wishlist.urls')),
+    path('course/', include('course.urls')),
+    path('', schema_view.with_ui('swagger',
+                                 cache_timeout=0), name='schema-swagger-ui'),
+
+    path('api/api.json/', schema_view.without_ui(cache_timeout=0),
+         name='schema-swagger-ui'),
+    path('redoc/', schema_view.with_ui('redoc',
+                                       cache_timeout=0), name='schema-redoc'),
 ]
