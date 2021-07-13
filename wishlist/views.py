@@ -29,13 +29,10 @@ class WishlistListAPIView(ListCreateAPIView):
     """
     serializer_class = WishlistSerializer
     queryset = Wishlist.objects.all()
-    permission_classes = (permissions.IsAuthenticated,)
+   
 
     def perform_create(self, serializer):
         return serializer.save(owner=self.request.user)
-
-    def get_queryset(self):
-        return self.queryset.filter(owner=self.request.user)
 
 
 class WishlistDetailAPIView(RetrieveUpdateDestroyAPIView):
@@ -56,9 +53,7 @@ class WishlistDetailAPIView(RetrieveUpdateDestroyAPIView):
     
     """
     serializer_class = WishlistSerializer
-    permission_classes = (permissions.IsAuthenticated, IsOwner,)
     queryset = Wishlist.objects.all()
     lookup_field = "id"
 
-    def get_queryset(self):
-        return self.queryset.filter(owner=self.request.user)
+    

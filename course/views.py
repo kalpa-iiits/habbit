@@ -26,13 +26,14 @@ class CourseListAPIView(ListCreateAPIView):
     """
     serializer_class = CourseSerializer
     queryset = Course.objects.all()
-    permission_classes = (permissions.IsAuthenticated,)
+   
 
     def perform_create(self, serializer):
+        permission_classes = (permissions.IsAuthenticated, IsOwner,)
         return serializer.save(owner=self.request.user)
 
-    def get_queryset(self):
-        return self.queryset.filter(owner=self.request.user)
+    
+
 
 
 class CourseDetailAPIView(RetrieveUpdateDestroyAPIView):
@@ -55,9 +56,6 @@ class CourseDetailAPIView(RetrieveUpdateDestroyAPIView):
     """
 
     serializer_class = CourseSerializer
-    permission_classes = (permissions.IsAuthenticated, IsOwner,)
     queryset = Course.objects.all()
     lookup_field = "id"
 
-    def get_queryset(self):
-        return self.queryset.filter(owner=self.request.user)
