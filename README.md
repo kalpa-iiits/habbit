@@ -8,8 +8,6 @@ The following things are implemented in this repo.
   5. We use Swagger, which is an opensource tool for accessing the API through an interface.
 
 How to Access the APIs:
-
-  The code is hosted on heroku and the APIs can be directly acessed from an endpoint. The project is also hosted on heroku and can be accessed at  https://habbit-interview.herokuapp.com/
     
 To run the code in a local machine:
   1. Make sure you have pip intstalled in your system.
